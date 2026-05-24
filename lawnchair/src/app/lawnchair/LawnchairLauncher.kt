@@ -70,6 +70,7 @@ import com.android.launcher3.widget.LauncherWidgetHolder
 import com.android.launcher3.widget.RoundedCornerEnforcement
 import com.android.systemui.plugins.shared.LauncherOverlayManager
 import com.android.systemui.shared.system.QuickStepContract
+import com.jlauncher.fold.HingeInsetApplier
 import com.jlauncher.fold.PostureObserver
 import com.kieronquinn.app.smartspacer.sdk.client.SmartspacerClient
 import com.patrykmichalik.opto.core.firstBlocking
@@ -197,10 +198,11 @@ class LawnchairLauncher : QuickstepLauncher() {
 
         reloadIconsIfNeeded()
 
-        // jLauncher: posture observation foundation.
-        // Subsequent foldable features (hinge avoidance, adaptive grid, tabletop
-        // dock relocation, book-mode split) subscribe to PostureObserver.posture.
-        PostureObserver(this).start()
+        // jLauncher: posture observation + F1 hinge avoidance.
+        val postureObserver = PostureObserver(this).also { it.start() }
+        postureObserver.posture
+            .onEach { HingeInsetApplier.apply(this, it) }
+            .launchIn(scope = lifecycleScope)
     }
 
     override fun collectStateHandlers(out: MutableList<StateManager.StateHandler<*>>) {
