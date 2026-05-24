@@ -82,6 +82,10 @@ class DeviceProfileOverrides(context: Context) {
         val allAppsIconSizeFactor: Float,
 
         val enableTaskbarOnPhone: Boolean,
+
+        // jLauncher F6: folded-posture grid dimensions, read once at IDP
+        // rebuild time and handed to PostureGridOverride.applyToIdp.
+        val foldedConfig: PostureGridOverride.FoldedConfig,
     ) {
         constructor(
             prefs: PreferenceManager,
@@ -96,6 +100,12 @@ class DeviceProfileOverrides(context: Context) {
             allAppsIconSizeFactor = prefs2.drawerIconSizeFactor.firstBlocking(),
 
             enableTaskbarOnPhone = prefs2.enableTaskbarOnPhone.firstBlocking(),
+
+            foldedConfig = PostureGridOverride.FoldedConfig(
+                numRows = prefs.workspaceRowsFolded.get(),
+                numColumns = prefs.workspaceColumnsFolded.get(),
+                numHotseatIcons = prefs.hotseatColumnsFolded.get(),
+            ),
         )
 
         fun applyUi(idp: InvariantDeviceProfile) {
@@ -112,9 +122,10 @@ class DeviceProfileOverrides(context: Context) {
             idp.iconSize[INDEX_TWO_PANEL_PORTRAIT] *= iconSizeFactor
             idp.iconSize[INDEX_TWO_PANEL_LANDSCAPE] *= iconSizeFactor
 
-            // jLauncher F2: apply posture-driven grid shape AFTER upstream/user
-            // overrides so the halve operates on the final row/col counts.
-            PostureGridOverride.applyToIdp(idp, PostureGridRegister.current)
+            // jLauncher F6: substitute posture-specific rows / cols / hotseat
+            // AFTER upstream/user overrides, and repoint idp.dbFile to a
+            // posture-scoped favorites database so independent layouts persist.
+            PostureGridOverride.applyToIdp(idp, PostureGridRegister.current, foldedConfig)
         }
     }
 

@@ -48,6 +48,15 @@ class PreferenceManager private constructor(private val context: Context) : Base
     val workspaceColumns = IntPref("pref_workspaceColumns", 4)
     val workspaceRows = IntPref("pref_workspaceRows", 5)
     val workspaceIncreaseMaxGridSize = BoolPref("pref_workspace_increase_max_grid_size", false)
+
+    // jLauncher F6: folded-posture grid dimensions. Active when the device is
+    // in a separating Book or TableTop posture. Each posture writes to its own
+    // launcher_*_folded.db, so layouts are persisted independently from the
+    // unfolded layout. Defaults track the F2 halving behaviour so an upgrade
+    // from F2 to F6 produces the same first-fold experience.
+    val workspaceColumnsFolded = IntPref("pref_workspaceColumnsFolded", 2)
+    val workspaceRowsFolded = IntPref("pref_workspaceRowsFolded", 5)
+    val hotseatColumnsFolded = IntPref("pref_hotseatColumnsFolded", 2)
     val folderRows = IdpIntPref("pref_folderRows", { numFolderRows }, reloadGrid)
 
     val drawerOpacity = FloatPref("pref_drawerOpacity", 1F, recreate)
