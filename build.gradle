@@ -152,7 +152,7 @@ android {
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach {
             def channel = variant.productFlavors.last().name
-            outputFileName = "Lawnchair.${variant.versionName}.$channel.${variant.buildType.name}.apk"
+            outputFileName = "jLauncher.${variant.versionName}.$channel.${variant.buildType.name}.apk"
         }
     }
 
@@ -213,11 +213,11 @@ android {
 
         debug {
             applicationIdSuffix ".debug"
-            resValue("string", "derived_app_name", "Lawnchair (Debug)")
+            resValue("string", "derived_app_name", "jLauncher (Debug)")
         }
 
         release {
-            resValue("string", "derived_app_name", "Lawnchair")
+            resValue("string", "derived_app_name", "jLauncher")
             minifyEnabled true
             shrinkResources true
             proguardFiles proguardFilesFromAosp + "proguard.pro"
@@ -247,12 +247,12 @@ android {
         }
 
         github {
-            applicationId 'app.lawnchair'
+            applicationId 'com.jlauncher.app'
             dimension "channel"
         }
 
         play {
-            applicationId "app.lawnchair.play"
+            applicationId "com.jlauncher.app.play"
             dimension "channel"
             isDefault true
         }
