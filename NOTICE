@@ -1,0 +1,36 @@
+jLauncher
+Copyright 2026 itxjobe and contributors
+
+This project is a fork of Lawnchair Launcher and contains modifications on
+top of it. Lawnchair itself is a fork of AOSP Launcher3. All upstream
+copyright notices in source file headers are preserved as required by the
+Apache License, Version 2.0.
+
+Upstream attribution:
+
+  The Android Open Source Project
+    Copyright (c) 2005-2008, The Android Open Source Project (and later)
+    https://source.android.com/
+    https://android.googlesource.com/platform/packages/apps/Launcher3/
+    Licensed under the Apache License, Version 2.0
+
+  Lawnchair Launcher
+    Copyright (c) 2024, Lawnchair
+    https://github.com/lawnchairlauncher/lawnchair
+    Licensed under the Apache License, Version 2.0
+    Includes contributions from the Lawnchair community.
+
+  Translations
+    Many language translations bundled with this project originate from the
+    Lawnchair Crowdin project (https://lawnchair.crowdin.com) and were
+    contributed by Lawnchair community members under Apache 2.0.
+
+Trademarks:
+
+  This project does not claim or use the "Lawnchair" name, "Lawnchair"
+  logo, "Google", "Pixel", or "Android" trademarks for its own identity or
+  branding. The jLauncher name is independent. Apache License Section 6
+  applies: this license does not grant permission to use the trade names,
+  trademarks, service marks, or product names of the licensor.
+
+For the full license text, see LICENSE.txt.
