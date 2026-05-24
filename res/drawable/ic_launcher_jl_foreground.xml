@@ -4,9 +4,22 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- jLauncher placeholder mark: a white ring centred in the 72dp safe zone -->
+    <!--
+        jLauncher wordmark: lowercase 'j' on the left, uppercase 'L' on the right,
+        centred in the 72dp safe zone (x: 18..90, y: 18..90).
+    -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillType="evenOdd"
-        android:pathData="M54,54 m-26,0 a26,26 0 1,0 52,0 a26,26 0 1,0 -52,0 M54,54 m-18,0 a18,18 0 1,0 36,0 a18,18 0 1,0 -36,0 Z" />
+        android:pathData="M 42,28 m -5,0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0 Z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="10"
+        android:strokeLineCap="round"
+        android:pathData="M 42,42 L 42,74 Q 42,86 30,86" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="10"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 66,28 L 66,82 L 90,82" />
 </vector>
