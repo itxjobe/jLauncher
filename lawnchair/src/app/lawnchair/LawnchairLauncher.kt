@@ -30,6 +30,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
+import com.jlauncher.fold.PostureObserver
 import app.lawnchair.LawnchairApp.Companion.showQuickstepWarningIfNecessary
 import app.lawnchair.compat.LawnchairQuickstepCompat
 import app.lawnchair.factory.LawnchairWidgetHolder
@@ -195,6 +196,11 @@ class LawnchairLauncher : QuickstepLauncher() {
         showQuickstepWarningIfNecessary()
 
         reloadIconsIfNeeded()
+
+        // jLauncher: posture observation foundation.
+        // Subsequent foldable features (hinge avoidance, adaptive grid, tabletop
+        // dock relocation, book-mode split) subscribe to PostureObserver.posture.
+        PostureObserver(this).start()
     }
 
     override fun collectStateHandlers(out: MutableList<StateManager.StateHandler<*>>) {
