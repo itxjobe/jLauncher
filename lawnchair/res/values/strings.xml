@@ -500,6 +500,9 @@
     <string name="show_sys_ui_scrim">Top shadow</string>
 
     <string name="home_screen_grid">Home screen grid</string>
+    <string name="folded_layout">Folded layout</string>
+    <string name="folded_layout_description">Independent grid for the folded posture. Changes apply on the next fold and the saved arrangement persists across fold and unfold events.</string>
+    <string name="folded_hotseat">Hotseat icons (folded)</string>
     <string name="home_screen_lock">Lock home screen</string>
     <string name="home_screen_unlock">Unlock home screen</string>
     <string name="home_screen_locked">Home screen is locked</string>

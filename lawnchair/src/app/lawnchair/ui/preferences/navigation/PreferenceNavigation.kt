@@ -33,6 +33,7 @@ import app.lawnchair.ui.preferences.destinations.GeneralPreferences
 import app.lawnchair.ui.preferences.destinations.GeneralRoutes
 import app.lawnchair.ui.preferences.destinations.GesturePreferences
 import app.lawnchair.ui.preferences.destinations.HiddenAppsPreferences
+import app.lawnchair.ui.preferences.destinations.FoldedScreenGridPreferences
 import app.lawnchair.ui.preferences.destinations.HomeScreenGridPreferences
 import app.lawnchair.ui.preferences.destinations.HomeScreenPreferences
 import app.lawnchair.ui.preferences.destinations.HomeScreenRoutes
@@ -103,6 +104,7 @@ fun InnerNavigation(
         navigation(route = Routes.HOME_SCREEN, startDestination = "main") {
             composable(route = "main") { HomeScreenPreferences() }
             composable(route = HomeScreenRoutes.GRID) { HomeScreenGridPreferences() }
+            composable(route = HomeScreenRoutes.FOLDED_GRID) { FoldedScreenGridPreferences() }
         }
 
         navigation(route = Routes.DOCK, startDestination = "main") {

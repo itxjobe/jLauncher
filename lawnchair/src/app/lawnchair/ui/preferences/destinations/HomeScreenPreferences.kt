@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 
 object HomeScreenRoutes {
     const val GRID = "grid"
+    const val FOLDED_GRID = "foldedGrid"
 }
 
 @Composable
@@ -115,6 +116,13 @@ fun HomeScreenPreferences(
                 label = stringResource(id = R.string.home_screen_grid),
                 destination = HomeScreenRoutes.GRID,
                 subtitle = stringResource(id = R.string.x_by_y, columns, rows),
+            )
+            val foldedColumns by prefs.workspaceColumnsFolded.getAdapter()
+            val foldedRows by prefs.workspaceRowsFolded.getAdapter()
+            NavigationActionPreference(
+                label = stringResource(id = R.string.folded_layout),
+                destination = HomeScreenRoutes.FOLDED_GRID,
+                subtitle = stringResource(id = R.string.x_by_y, foldedColumns, foldedRows),
             )
             DividerColumn {
                 SwitchPreference(
