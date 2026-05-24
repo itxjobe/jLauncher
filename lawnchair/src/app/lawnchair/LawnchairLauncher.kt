@@ -71,6 +71,7 @@ import com.android.launcher3.widget.LauncherWidgetHolder
 import com.android.launcher3.widget.RoundedCornerEnforcement
 import com.android.systemui.plugins.shared.LauncherOverlayManager
 import com.android.systemui.shared.system.QuickStepContract
+import com.jlauncher.fold.FoldTransitionController
 import com.jlauncher.fold.PostureGridOverride
 import com.jlauncher.fold.PostureGridRegister
 import com.jlauncher.fold.PostureObserver
@@ -216,6 +217,14 @@ class LawnchairLauncher : QuickstepLauncher() {
                 InvariantDeviceProfile.INSTANCE.get(this).onPreferencesChanged(this)
             }
             .launchIn(scope = lifecycleScope)
+
+        // jLauncher F3a: fold-transition crossfade. Subscribes to posture
+        // changes, snapshots the workspace before and after the swap,
+        // installs a FoldCrossfadeOverlay above the decor view, and fades
+        // source -> target so the layout swap is hidden behind a crossfade
+        // rather than a snap. Falls back to a 300ms ValueAnimator when the
+        // system unfold progress provider is unavailable.
+        FoldTransitionController(this, postureObserver.posture).start()
     }
 
     override fun collectStateHandlers(out: MutableList<StateManager.StateHandler<*>>) {
