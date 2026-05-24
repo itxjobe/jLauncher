@@ -49,6 +49,7 @@ import com.android.launcher3.AbstractFloatingView
 import com.android.launcher3.BaseActivity
 import com.android.launcher3.BubbleTextView
 import com.android.launcher3.GestureNavContract
+import com.android.launcher3.InvariantDeviceProfile
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.LauncherState
 import com.android.launcher3.R
@@ -70,7 +71,8 @@ import com.android.launcher3.widget.LauncherWidgetHolder
 import com.android.launcher3.widget.RoundedCornerEnforcement
 import com.android.systemui.plugins.shared.LauncherOverlayManager
 import com.android.systemui.shared.system.QuickStepContract
-import com.jlauncher.fold.HingeInsetApplier
+import com.jlauncher.fold.PostureGridOverride
+import com.jlauncher.fold.PostureGridRegister
 import com.jlauncher.fold.PostureObserver
 import com.kieronquinn.app.smartspacer.sdk.client.SmartspacerClient
 import com.patrykmichalik.opto.core.firstBlocking
@@ -198,10 +200,21 @@ class LawnchairLauncher : QuickstepLauncher() {
 
         reloadIconsIfNeeded()
 
-        // jLauncher: posture observation + F1 hinge avoidance.
+        // jLauncher: posture observation + F2 adaptive grid.
+        // Listener mutates dp.workspacePadding after each DP swap, before reapplyUi
+        // reads it via Workspace.setInsets — replaces F1's direct View.setPadding.
+        addOnDeviceProfileChangeListener { dp ->
+            PostureGridOverride.applyToDp(dp, PostureGridRegister.current, this)
+        }
         val postureObserver = PostureObserver(this).also { it.start() }
         postureObserver.posture
-            .onEach { HingeInsetApplier.apply(this, it) }
+            .onEach { posture ->
+                PostureGridRegister.current = posture
+                // Triggers initGrid → DeviceProfileOverrides.applyUi →
+                // PostureGridOverride.applyToIdp → rebuild supportedProfiles →
+                // OnIDPChangeListener fires → Launcher swaps DP and reapplies UI.
+                InvariantDeviceProfile.INSTANCE.get(this).onPreferencesChanged(this)
+            }
             .launchIn(scope = lifecycleScope)
     }
 

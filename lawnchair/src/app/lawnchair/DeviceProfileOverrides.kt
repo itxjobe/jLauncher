@@ -10,6 +10,8 @@ import com.android.launcher3.InvariantDeviceProfile.INDEX_LANDSCAPE
 import com.android.launcher3.InvariantDeviceProfile.INDEX_TWO_PANEL_LANDSCAPE
 import com.android.launcher3.InvariantDeviceProfile.INDEX_TWO_PANEL_PORTRAIT
 import com.android.launcher3.util.MainThreadInitializedObject
+import com.jlauncher.fold.PostureGridOverride
+import com.jlauncher.fold.PostureGridRegister
 import com.patrykmichalik.opto.core.firstBlocking
 
 class DeviceProfileOverrides(context: Context) {
@@ -109,6 +111,10 @@ class DeviceProfileOverrides(context: Context) {
             idp.iconSize[INDEX_LANDSCAPE] *= iconSizeFactor
             idp.iconSize[INDEX_TWO_PANEL_PORTRAIT] *= iconSizeFactor
             idp.iconSize[INDEX_TWO_PANEL_LANDSCAPE] *= iconSizeFactor
+
+            // jLauncher F2: apply posture-driven grid shape AFTER upstream/user
+            // overrides so the halve operates on the final row/col counts.
+            PostureGridOverride.applyToIdp(idp, PostureGridRegister.current)
         }
     }
 
